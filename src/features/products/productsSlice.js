@@ -2,17 +2,18 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchProductList } from '../../api/fakeStore'
 
 const initialState = {
-  productList: [],
   status: 'idle',
+  product: []
 };
-
 
 //fetchProductList().then(json => setItemData(json))
 
 export const getData = createAsyncThunk(
-  'productList/getData',
+  'products/getData',
   async () => {
     const json = await fetchProductList();
+    console.log(json)
+
     return json;
   }
 )
@@ -32,8 +33,8 @@ export const getData = createAsyncThunk(
 // );
 
 
-export const productListSlice = createSlice({
-  name: 'productList',
+export const productsSlice = createSlice({
+  name: 'products',
   initialState,
   reducers: {
 
@@ -45,7 +46,7 @@ export const productListSlice = createSlice({
       })
       .addCase(getData.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.productList = action.payload;
+        state.product = action.payload;
       });
   }
 });
@@ -101,6 +102,7 @@ export const productListSlice = createSlice({
 //   }
 // };
 
-export const selectProductList = (state) => state.productList.productList;
+export const selectProducts = (state) => state.products;
+export const selectProduct = (state, id) => state.products.product.find(product => product.id === id);
 
-export default productListSlice.reducer;
+export default productsSlice.reducer;
