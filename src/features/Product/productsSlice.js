@@ -1,21 +1,22 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchProductList } from '../../api/fakeStore'
+import { fetchProducts, fetchCategories } from '../../api/fakeStore'
 
 const initialState = {
   status: 'idle',
-  product: []
+  product: [],
+  category: []
 };
 
-//fetchProductList().then(json => setItemData(json))
+//fetchProducts().then(json => setItemData(json))
 
-export const getData = createAsyncThunk(
-  'products/getData',
-  async () => {
-    const json = await fetchProductList();
-    console.log(json)
+export const getProducts = createAsyncThunk(
+  'products/getProducts',
+  async () => await fetchProducts()
+)
 
-    return json;
-  }
+export const getCategories = createAsyncThunk(
+  'products/getCategories',
+  async () => await fetchCategories()
 )
 
 // // The function below is called a thunk and allows us to perform async logic. It
@@ -41,13 +42,21 @@ export const productsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getData.pending, (state) => {
+      .addCase(getProducts.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(getData.fulfilled, (state, action) => {
+      .addCase(getProducts.fulfilled, (state, action) => {
         state.status = 'idle';
         state.product = action.payload;
+      })
+      .addCase(getCategories.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getCategories.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.category = action.payload;
       });
+
   }
 });
 
@@ -104,5 +113,9 @@ export const productsSlice = createSlice({
 
 export const selectProducts = (state) => state.products;
 export const selectProduct = (state, id) => state.products.product.find(product => product.id === id);
+
+
+export const selectCategory = (state) => state.products.category;
+
 
 export default productsSlice.reducer;

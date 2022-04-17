@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-import { getData } from '../features/products/productsSlice'
+import { getProducts, getCategories } from '../features/Product/productsSlice'
 
 import Navbar from '../features/navbar/Navbar';
 
@@ -14,7 +14,8 @@ import ProductPage from '../pages/ProductPage'
 const App = () => { 
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getData())
+        dispatch(getProducts())
+        dispatch(getCategories())
     }, [dispatch]);
     
     return (

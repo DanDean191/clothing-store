@@ -4,10 +4,10 @@ const Product = ({details}) => {
     const {
         category, 
         description,
-        id,
+        //id,
         image,
         price,
-        rating,
+        //rating,
         title
     } = details;
 
