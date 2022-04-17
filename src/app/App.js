@@ -12,7 +12,7 @@ import ProductsPage from '../pages/ProductsPage'
 import ProductPage from '../pages/ProductPage'
 import BasketPage from '../pages/BasketPage'
 import UserAccountPage from '../pages/UserAccountPage'
-import UserRegisterPage from '../pages/UserRegisterPage'
+import UserLoginPage from '../pages/UserLoginPage'
 
 const App = () => { 
     const dispatch = useDispatch()
@@ -23,13 +23,13 @@ const App = () => {
     
     return (
         <Router>
-            <Navbar loggedIn={true} />
+            <Navbar loggedIn={false} />
             <Routes>
                 <Route path='/' element={<HomePage />} />
                 <Route path='/products' element={<ProductsPage />} />
                 <Route path='/basket' element={<BasketPage />} />
                 <Route path='/user' element={<UserAccountPage />} />
-                <Route path='/register' element={<UserRegisterPage />} />
+                <Route path='/login' element={<UserLoginPage />} />
                 <Route path='/product/:id' element={<ProductPage />} />
             </Routes>
         </Router>

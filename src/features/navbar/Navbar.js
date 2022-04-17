@@ -7,7 +7,7 @@ const Navbar = ({loggedIn = false}) => {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/products">Products</NavLink>
         { loggedIn ? <NavLink to="/user">Account</NavLink> 
-          : <NavLink to="/register">Register</NavLink> }
+          : <NavLink to="/login">Login</NavLink> }
         <NavLink to="/basket">Basket</NavLink>
     </div>
   )

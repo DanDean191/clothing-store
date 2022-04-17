@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   hasError: false,
   accountDetails: [],
+  isLoggedin: false
 };
 
 //fetchProducts().then(json => setItemData(json))
@@ -34,7 +35,13 @@ export const accountDetailsSlice = createSlice({
   name: 'allAccounts',
   initialState,
   reducers: {
-
+    login: (state) => {
+        //       // Redux Toolkit allows us to write "mutating" logic in reducers. It
+        //       // doesn't actually mutate the state because it uses the Immer library,
+        //       // which detects changes to a "draft state" and produces a brand new
+        //       // immutable state based off those changes
+        state.isLoggedin = true;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -106,6 +113,13 @@ export const accountDetailsSlice = createSlice({
 // };
 
 export const selectAllAccounts = (state) => state.allAccounts.accountDetails;
+export const checkLogin = (state, username, password ) => {
+  const details = (state.allAccounts.accountDetails.find(e => e.username === username))
+  if (details === undefined) return false;
+  const usernameMatch = details.username === username;
+  const passwordMatch = details.password === password;
+  return (usernameMatch && passwordMatch)
+}
 export const getloadingStatus = (state) => state.allAccounts.isLoading;
 export const getErrorStatus = (state) => state.allAccounts.hasError;
 
