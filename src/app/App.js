@@ -7,9 +7,12 @@ import { getProducts, getCategories } from '../features/Product/productsSlice'
 import Navbar from '../features/navbar/Navbar';
 
 // Pages
-import HomePage from '../pages/Home/'
+import HomePage from '../pages/HomePage/'
 import ProductsPage from '../pages/ProductsPage'
 import ProductPage from '../pages/ProductPage'
+import BasketPage from '../pages/BasketPage'
+import UserAccountPage from '../pages/UserAccountPage'
+import UserRegisterPage from '../pages/UserRegisterPage'
 
 const App = () => { 
     const dispatch = useDispatch()
@@ -20,10 +23,13 @@ const App = () => {
     
     return (
         <Router>
-            <Navbar />
+            <Navbar loggedIn={true} />
             <Routes>
                 <Route path='/' element={<HomePage />} />
                 <Route path='/products' element={<ProductsPage />} />
+                <Route path='/basket' element={<BasketPage />} />
+                <Route path='/user' element={<UserAccountPage />} />
+                <Route path='/register' element={<UserRegisterPage />} />
                 <Route path='/product/:id' element={<ProductPage />} />
             </Routes>
         </Router>

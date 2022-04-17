@@ -13,3 +13,11 @@ export const fetchCategories = async () => {
     })
     return await response.json()    
 }
+
+export const fetchBasket = async () => {
+    const requestUrl = 'https://fakestoreapi.com/carts'
+    const response = await fetch(requestUrl, { 
+        method: 'GET'
+    })
+    return await response.json()    
+}

@@ -4,7 +4,7 @@ const Dropdown = ({name, options, changeHandler}) => {
   return (
     <select name={name} id={name} onChange={changeHandler}>
       <option value="all">all</option>
-      {options.map((item,index) => <option value={item}>{item}</option>)}
+      {options.map((item,index) => <option key={index} value={item}>{item}</option>)}
     </select>
   )
 }

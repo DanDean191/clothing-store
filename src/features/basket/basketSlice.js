@@ -1,22 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchProducts, fetchCategories } from '../../api/fakeStore'
+import { fetchBasket } from '../../api/fakeStore'
 
 const initialState = {
   status: 'idle',
-  products: [],
-  category: []
+  baskets: [],
 };
 
 //fetchProducts().then(json => setItemData(json))
 
-export const getProducts = createAsyncThunk(
-  'products/getProducts',
-  async () => await fetchProducts()
-)
-
-export const getCategories = createAsyncThunk(
-  'products/getCategories',
-  async () => await fetchCategories()
+export const getBasket = createAsyncThunk(
+  'basket/getProducts',
+  async () => await fetchBasket()
 )
 
 // // The function below is called a thunk and allows us to perform async logic. It
@@ -35,28 +29,20 @@ export const getCategories = createAsyncThunk(
 
 
 export const productsSlice = createSlice({
-  name: 'allProcucts',
+  name: 'basket',
   initialState,
   reducers: {
 
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getProducts.pending, (state) => {
+      .addCase(getBasket.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(getProducts.fulfilled, (state, action) => {
+      .addCase(getBasket.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.products = action.payload;
+        state.baskets = action.payload;
       })
-      .addCase(getCategories.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(getCategories.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.category = action.payload;
-      });
-
   }
 });
 
@@ -111,7 +97,7 @@ export const productsSlice = createSlice({
 //   }
 // };
 
-export const selectAllProducts = (state) => state.allProducts.products;
+export const selectProducts = (state) => state.allProducts.products;
 export const selectProduct = (state, id) => state.allProducts.products.find(product => product.id === id);
 export const selectCategory = (state) => state.allProducts.category;
 

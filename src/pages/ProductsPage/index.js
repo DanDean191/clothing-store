@@ -1,14 +1,29 @@
 import React from 'react'
-import Products from '../../features/productTiles/productTileContainer'
+import ProductTilesContainer from '../../features/productTiles/productTileContainer'
+import Dropdown from '../../features/dropdown/'
 
 import { useSelector } from 'react-redux';
-import { selectProducts } from '../../features/Product/productsSlice'
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { selectAllProducts, selectCategory } from '../../features/Product/productsSlice'
 
 const ProductsPage = () => {  
-  const products = useSelector(state => selectProducts(state));
+  const products = useSelector(selectAllProducts);
+  const categories = useSelector(selectCategory)
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams() 
+
+  const query = searchParams.get("category");
+ 
+  const navigationSelector = ({target}) => {
+    const url = target.value === 'all' ? `/products` : `/products?category=${target.value}`
+    return navigate(url)
+  }
 
   return (
-    <Products products={products} />
+    <>
+      <Dropdown name={"Categories"} options={categories} changeHandler={navigationSelector}/>
+      <ProductTilesContainer products={products} filterOption={query} />
+    </>
   )
 }
 
