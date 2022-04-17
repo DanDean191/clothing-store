@@ -21,3 +21,11 @@ export const fetchBasket = async () => {
     })
     return await response.json()    
 }
+
+export const fetchAccounts = async () => {
+    const requestUrl = 'https://fakestoreapi.com/users'
+    const response = await fetch(requestUrl, { 
+        method: 'GET'
+    })
+    return await response.json()    
+}

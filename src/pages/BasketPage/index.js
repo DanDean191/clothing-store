@@ -10,7 +10,6 @@ const BasketPage = () => {
       dispatch(getBasket())
   }, [dispatch]);
 
-
   return (
     <>
       <h1>BasketPage</h1>

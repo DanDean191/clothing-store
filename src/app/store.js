@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
 import productsReducer from '../features/Product/productsSlice';
 import basketReducer from '../features/basket/basketSlice';
+import accountDetailsReducer from '../features/accountDetails/accountDetailsSlice';
 
 export const store = configureStore({
   reducer: {
     allProducts: productsReducer,
-    counter: counterReducer,
-    allBaskets: basketReducer
+    allBaskets: basketReducer,
+    allAccounts: accountDetailsReducer
   }, 
   devTools: true
 });

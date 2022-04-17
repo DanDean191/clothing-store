@@ -1,23 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchProducts, fetchCategories } from '../../api/fakeStore'
+import { fetchAccounts } from '../../api/fakeStore'
 
 const initialState = {
-  status: 'idle',
-  products: [],
-  category: []
+  isLoading: false,
+  hasError: false,
+  accountDetails: [],
 };
 
 //fetchProducts().then(json => setItemData(json))
 
-export const getProducts = createAsyncThunk(
-  'products/getProducts',
-  async () => await fetchProducts()
+export const getAccounts = createAsyncThunk(
+  'allAccounts/getAccounts',
+  async () => await fetchAccounts()
 )
 
-export const getCategories = createAsyncThunk(
-  'products/getCategories',
-  async () => await fetchCategories()
-)
 
 // // The function below is called a thunk and allows us to perform async logic. It
 // // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -34,29 +30,27 @@ export const getCategories = createAsyncThunk(
 // );
 
 
-export const productsSlice = createSlice({
-  name: 'allProcucts',
+export const accountDetailsSlice = createSlice({
+  name: 'allAccounts',
   initialState,
   reducers: {
 
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getProducts.pending, (state) => {
-        state.status = 'loading';
+      .addCase(getAccounts.pending, (state) => {
+        state.isLoading = true;
+        state.hasError = false;
       })
-      .addCase(getProducts.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.products = action.payload;
+      .addCase(getAccounts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.hasError = false;
+        state.accountDetails = action.payload;
       })
-      .addCase(getCategories.pending, (state) => {
-        state.status = 'loading';
+      .addCase(getAccounts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.hasError = true;
       })
-      .addCase(getCategories.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.category = action.payload;
-      });
-
   }
 });
 
@@ -111,19 +105,8 @@ export const productsSlice = createSlice({
 //   }
 // };
 
-export const selectAllProducts = (state) => state.allProducts.products;
-export const selectProduct = (state, id) => state.allProducts.products.find(product => product.id === id);
+export const selectAllAccounts = (state) => state.allAccounts.accountDetails;
+export const getloadingStatus = (state) => state.allAccounts.isLoading;
+export const getErrorStatus = (state) => state.allAccounts.hasError;
 
-
-export const selectFilteredProducts = (state, ids) => {
-  const arr = []
-  ids.forEach(id => {
-    arr.push(state.allProducts.products.find(product => product.id === id))
-  })
-  return arr
-}
-
-
-export const selectCategory = (state) => state.allProducts.category;
-
-export default productsSlice.reducer;
+export default accountDetailsSlice.reducer;
